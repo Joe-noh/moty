@@ -1,0 +1,12 @@
+name = "<SERVICE_NAME>"
+account_id = "<ACCOUNT_ID>"
+main = "./.cloudflare/worker.js"
+
+compatibility_date = "2021-11-12"
+workers_dev = true
+
+[site]
+bucket = "./.cloudflare/public"
+
+[build]
+command = "npm run build"
