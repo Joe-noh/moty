@@ -1,2 +1,10 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script lang="ts">
+  import { onMount } from 'svelte'
+  import { initializeFirebase, login } from '$lib/firebase'
+
+  onMount(async () => initializeFirebase())
+</script>
+
+<h1>Movie of the Year</h1>
+
+<button on:click={() => login()}>LOGIN</button>

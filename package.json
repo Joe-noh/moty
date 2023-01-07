@@ -1,6 +1,7 @@
 {
   "name": "moty",
   "version": "0.0.1",
+  "type": "module",
   "private": true,
   "scripts": {
     "dev": "vite dev",
@@ -10,6 +11,9 @@
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "wrangler": "wrangler",
     "test:unit": "vitest"
+  },
+  "dependencies": {
+    "firebase": "^9.15.0"
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "^1.0.0",
@@ -23,7 +27,6 @@
     "vitest": "^0.25.3",
     "wrangler": "^2.6.2"
   },
-  "type": "module",
   "engines": {
     "node": "18.x",
     "npm": "8.x"
