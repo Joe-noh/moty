@@ -35,5 +35,8 @@
     "singleQuote": true,
     "tabWidth": 2,
     "trailingComma": "es5"
+  },
+  "dependencies": {
+    "firebase": "^9.15.0"
   }
 }
