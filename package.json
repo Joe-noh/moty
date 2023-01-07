@@ -12,6 +12,7 @@
     "test:unit": "vitest"
   },
   "dependencies": {
+    "@prisma/client": "^4.8.1",
     "firebase": "^9.15.0"
   },
   "devDependencies": {
