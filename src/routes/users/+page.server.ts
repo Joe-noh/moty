@@ -2,15 +2,8 @@ import { redirect } from '@sveltejs/kit'
 import { nanoid } from 'nanoid'
 import { SignJWT } from 'jose'
 import { prisma } from '$lib/prisma'
-import { JWT_SECRET } from '$env/static/private'
+import { JWT_SECRET, NODE_ENV } from '$env/static/private'
 import type { Actions } from './$types'
-
-function cookieExpires(): Date {
-  const date = new Date()
-  date.setDate(date.getDate() + 14)
-
-  return date
-}
 
 export const actions: Actions = {
   default: async ({ cookies }) => {
@@ -22,7 +15,13 @@ export const actions: Actions = {
       .setExpirationTime('2weeks')
       .sign(new TextEncoder().encode(JWT_SECRET))
 
-    cookies.set('token', jwt, { expires: cookieExpires() })
+    cookies.set('token', jwt, {
+      maxAge: 2 * 7 * 24 * 60 * 60,
+      secure: NODE_ENV !== 'development',
+      httpOnly: true,
+      path: '/',
+      sameSite: 'lax',
+    })
 
     throw redirect(302, '/2023')
   },
