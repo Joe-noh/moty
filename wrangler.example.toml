@@ -1,4 +1,4 @@
-name = "<SERVICE_NAME>"
+name = "moty"
 account_id = "<ACCOUNT_ID>"
 main = "./.cloudflare/worker.js"
 
