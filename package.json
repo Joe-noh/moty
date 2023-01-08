@@ -13,7 +13,11 @@
   },
   "dependencies": {
     "@prisma/client": "^4.8.1",
-    "firebase": "^9.15.0"
+    "@trpc/client": "^10.8.1",
+    "@trpc/server": "^10.8.1",
+    "firebase": "^9.15.0",
+    "jose": "^4.11.2",
+    "nanoid": "^4.0.0"
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "^1.0.0",
