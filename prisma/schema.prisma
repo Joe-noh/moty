@@ -12,6 +12,13 @@ datasource db {
 }
 
 model User {
-  id Int @id @default(autoincrement())
+  id BigInt @id @default(autoincrement())
   uuid String
+  googleAccount GoogleAccount?
+}
+
+model GoogleAccount {
+  id BigInt @id @default(autoincrement())
+  user User @relation(fields: [userId], references: [id])
+  userId BigInt @unique
 }
