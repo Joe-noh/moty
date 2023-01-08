@@ -7,5 +7,5 @@ services:
     ports:
       - 3306:3306
     environment:
-      MYSQL_DATABASE: moty_dev
+      MYSQL_DATABASE: moty
       MYSQL_ALLOW_EMPTY_PASSWORD: yes
