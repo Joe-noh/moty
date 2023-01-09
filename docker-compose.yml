@@ -2,10 +2,10 @@ version: '3.8'
 
 services:
   db:
-    image: mysql:8.0
-    restart: always
+    image: postgres:15.0
     ports:
-      - 3306:3306
+      - 5432:5432
     environment:
-      MYSQL_DATABASE: moty
-      MYSQL_ALLOW_EMPTY_PASSWORD: yes
+      POSTGRES_DB: moty
+      POSTGRES_USER: moty
+      POSTGRES_PASSWORD: password
