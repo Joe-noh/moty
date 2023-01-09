@@ -2,6 +2,7 @@ import { redirect } from '@sveltejs/kit'
 import { nanoid } from 'nanoid'
 import { SignJWT } from 'jose'
 import { prisma } from '$lib/prisma'
+import { currentYear } from '$lib/year'
 import { JWT_SECRET, NODE_ENV } from '$env/static/private'
 import type { Actions } from './$types'
 
@@ -23,6 +24,6 @@ export const actions: Actions = {
       sameSite: 'lax',
     })
 
-    throw redirect(302, '/2023')
+    throw redirect(302, `/${currentYear()}`)
   },
 }
