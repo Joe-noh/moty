@@ -1,5 +1,6 @@
 <script lang="ts">
   import { Movie } from '$lib/entities/movie'
+  import { trpc } from '$lib/trpc/client'
 
   let query = ''
   let page = 1
@@ -7,19 +8,7 @@
   let movies: Movie[] = []
 
   async function search(query: string, page: number) {
-    const response = await fetch('/api/movies', {
-      method: 'POST',
-      body: JSON.stringify({ query, page }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-    const json = await response.json()
-
-    return {
-      movies: json.results.map((m: Tmdb.Movie) => new Movie(m)),
-      maxPage: json.total_pages,
-    }
+    return await trpc.searchMovies.query({ query, page })
   }
 
   async function searchMovies(e: Event) {
@@ -27,7 +16,7 @@
 
     const res = await search(query, page)
 
-    movies = res.movies
+    movies = res.movies.map((m) => new Movie(m))
     maxPage = res.maxPage
   }
 
@@ -36,7 +25,7 @@
 
     const res = await search(query, ++page)
 
-    movies = [...movies, ...res.movies]
+    movies = [...movies, ...res.movies.map((m) => new Movie(m))]
   }
 </script>
 
@@ -50,8 +39,8 @@
 {#if movies.length > 0}
   {#each movies as movie}
     <li>
-      <img src={movie.thumbnailUrl} alt={movie.title}>
-      {movie.title} - {movie.releaseDate.getFullYear()}
+      <img src={movie.thumbnailUrl} alt={movie.title} />
+      {movie.title} - {movie.releaseDate?.getFullYear()}
     </li>
   {/each}
   <button on:click={fetchMoreMovies}>LOAD MORE</button>
