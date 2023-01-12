@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Movie } from '$lib/types'
+  import { Movie } from '$lib/entities/movie'
 
   let query = ''
   let page = 1
@@ -17,7 +17,7 @@
     const json = await response.json()
 
     return {
-      movies: json.results,
+      movies: json.results.map((m: Tmdb.Movie) => new Movie(m)),
       maxPage: json.total_pages,
     }
   }
@@ -49,7 +49,10 @@
 
 {#if movies.length > 0}
   {#each movies as movie}
-    <li>{movie.title}</li>
+    <li>
+      <img src={movie.thumbnailUrl} alt={movie.title}>
+      {movie.title} - {movie.releaseDate.getFullYear()}
+    </li>
   {/each}
   <button on:click={fetchMoreMovies}>LOAD MORE</button>
 {/if}
