@@ -2,22 +2,41 @@
   import type { Movie } from '$lib/types'
 
   let query = ''
+  let page = 1
+  let maxPage: number
   let movies: Movie[] = []
 
-  async function searchMovies(e: Event) {
-    e.preventDefault()
-
-    const res = await fetch('/api/movies', {
+  async function search(query: string, page: number) {
+    const response = await fetch('/api/movies', {
       method: 'POST',
-      body: JSON.stringify({ query, page: 1 }),
+      body: JSON.stringify({ query, page }),
       headers: {
         'Content-Type': 'application/json',
       },
     })
+    const json = await response.json()
 
-    const { results } = await res.json()
+    return {
+      movies: json.results,
+      maxPage: json.total_pages,
+    }
+  }
 
-    movies = results
+  async function searchMovies(e: Event) {
+    e.preventDefault()
+
+    const res = await search(query, page)
+
+    movies = res.movies
+    maxPage = res.maxPage
+  }
+
+  async function fetchMoreMovies(e: Event) {
+    e.preventDefault()
+
+    const res = await search(query, ++page)
+
+    movies = [...movies, ...res.movies]
   }
 </script>
 
@@ -32,4 +51,5 @@
   {#each movies as movie}
     <li>{movie.title}</li>
   {/each}
+  <button on:click={fetchMoreMovies}>LOAD MORE</button>
 {/if}
