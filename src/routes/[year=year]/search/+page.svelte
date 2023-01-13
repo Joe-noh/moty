@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onMount } from 'svelte'
   import { Movie } from '$lib/entities/movie'
   import { trpc } from '$lib/trpc/client'
   import MovieThumbnail from '$lib/components/movie-thumbnail.svelte'
@@ -7,26 +8,40 @@
   let page = 1
   let maxPage: number
   let movies: Movie[] = []
+  let loader: HTMLDivElement
 
-  async function search(query: string, page: number) {
-    return await trpc.searchMovies.query({ query, page })
-  }
+  onMount(() => {
+    const options = { rootMargin: '900px' }
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (page === maxPage) {
+          observer.unobserve(entry.target)
+        } else {
+          if (movies.length > 0) {
+            fetchMoreMovies()
+          }
+        }
+      })
+    }, options)
+
+    observer.observe(loader)
+  })
 
   async function searchMovies(e: Event) {
     e.preventDefault()
 
-    const res = await search(query, page)
+    const res = await trpc.searchMovies.query({ query, page: 1 })
 
+    page = 1
     movies = res.movies.map((m) => new Movie(m))
     maxPage = res.maxPage
   }
 
-  async function fetchMoreMovies(e: Event) {
-    e.preventDefault()
-
-    const res = await search(query, ++page)
+  async function fetchMoreMovies() {
+    const res = await trpc.searchMovies.query({ query, page: ++page })
 
     movies = [...movies, ...res.movies.map((m) => new Movie(m))]
+    maxPage = res.maxPage
   }
 </script>
 
@@ -45,15 +60,16 @@
       </li>
     {/each}
     {#if movies.length % 3 == 1}
-      <li class="movie padder"></li>
-      <li class="movie padder"></li>
+      <li class="movie padder" />
+      <li class="movie padder" />
     {/if}
     {#if movies.length % 3 == 2}
-      <li class="movie padder"></li>
+      <li class="movie padder" />
     {/if}
   </ul>
-  <button on:click={fetchMoreMovies}>LOAD MORE</button>
 {/if}
+
+<div bind:this={loader} />
 
 <style>
   .movies {
