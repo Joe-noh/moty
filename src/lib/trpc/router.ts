@@ -1,17 +1,13 @@
-import { t } from '$lib/trpc/t'
-import { z } from 'zod'
 import { URLSearchParams } from 'url'
-import { Movie } from '$lib/entities/movie'
+import { z } from 'zod'
+import { t } from '$lib/trpc/t'
 import { TMDB_ACCESS_TOKEN } from '$env/static/private'
 
 export const router = t.router({
-  greeting: t.procedure.query(async () => {
-    return `Hello tRPC v10 @ ${new Date().toLocaleTimeString()}`
-  }),
   searchMovies: t.procedure
     .input(
       z.object({
-        query: z.string(),
+        query: z.string().min(1),
         page: z.number().default(1),
       })
     )
