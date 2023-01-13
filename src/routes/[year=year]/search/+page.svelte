@@ -1,6 +1,7 @@
 <script lang="ts">
   import { Movie } from '$lib/entities/movie'
   import { trpc } from '$lib/trpc/client'
+  import MovieThumbnail from '$lib/components/movie-thumbnail.svelte'
 
   let query = ''
   let page = 1
@@ -37,11 +38,37 @@
 </form>
 
 {#if movies.length > 0}
-  {#each movies as movie}
-    <li>
-      <img src={movie.thumbnailUrl} alt={movie.title} />
-      {movie.title} - {movie.releaseDate?.getFullYear()}
-    </li>
-  {/each}
+  <ul class="movies">
+    {#each movies as movie}
+      <li class="movie">
+        <MovieThumbnail {movie} />
+      </li>
+    {/each}
+    {#if movies.length % 3 == 1}
+      <li class="movie padder"></li>
+      <li class="movie padder"></li>
+    {/if}
+    {#if movies.length % 3 == 2}
+      <li class="movie padder"></li>
+    {/if}
+  </ul>
   <button on:click={fetchMoreMovies}>LOAD MORE</button>
 {/if}
+
+<style>
+  .movies {
+    list-style: none;
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+  }
+
+  .movie {
+    margin: 0 1rem 2rem;
+  }
+
+  .padder {
+    width: 300px;
+  }
+</style>
