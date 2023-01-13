@@ -8,7 +8,6 @@ export const load: PageLoad = async ({ params, parent }) => {
     throw redirect(302, `/${params.year}/movies`)
   } else {
     return {
-      year: parseInt(params.year),
       movies: [],
     }
   }
