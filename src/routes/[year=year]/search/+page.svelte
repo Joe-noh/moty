@@ -59,13 +59,6 @@
         <MovieThumbnail {movie} />
       </li>
     {/each}
-    {#if movies.length % 3 == 1}
-      <li class="movie padder" />
-      <li class="movie padder" />
-    {/if}
-    {#if movies.length % 3 == 2}
-      <li class="movie padder" />
-    {/if}
   </ul>
 {/if}
 
@@ -82,9 +75,5 @@
 
   .movie {
     margin: 0 1rem 2rem;
-  }
-
-  .padder {
-    width: 300px;
   }
 </style>
