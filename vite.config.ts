@@ -5,6 +5,7 @@ const config: UserConfig = {
   plugins: [sveltekit()],
   test: {
     include: ['src/**/*.{test,spec}.{js,ts}'],
+    setupFiles: ['test/setup.ts'],
   },
 }
 
