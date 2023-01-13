@@ -5,7 +5,11 @@
 </script>
 
 <div class="thumbnail">
-  <img class="image" src={movie.thumbnailUrl} alt={movie.title} />
+  {#if movie.thumbnailUrl}
+    <img class="image" src={movie.thumbnailUrl} alt={movie.title} />
+  {:else}
+    <!-- img class="image" src={fallback} alt="The thumbnail image is not found" / -->
+  {/if}
   <span class="title">{movie.title}</span>
 </div>
 
