@@ -7,6 +7,15 @@ jobs:
   test:
     runs-on: ubuntu-latest
     name: Unit Test
+    services:
+      postgres:
+        image: postgres:15.0
+        env:
+          POSTGRES_DB: moty_test
+          POSTGRES_USER: moty
+          POSTGRES_PASSWORD: password
+        ports:
+          - 5433:5432
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v3

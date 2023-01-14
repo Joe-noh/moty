@@ -1,4 +1,3 @@
-import { describe, expect, it } from 'vitest'
 import { mockGet } from 'vi-fetch'
 import { movieRouter } from './movie'
 
