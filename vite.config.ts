@@ -4,6 +4,7 @@ import type { UserConfig } from 'vite'
 const config: UserConfig = {
   plugins: [sveltekit()],
   test: {
+    globals: true,
     include: ['src/**/*.{test,spec}.{js,ts}'],
     setupFiles: ['test/setup.ts'],
   },

@@ -1,4 +1,3 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { currentYear } from '$lib/year'
 
 describe('currentYear', () => {
