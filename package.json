@@ -11,7 +11,7 @@
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "test:unit": "dotenv -c test -- vitest",
-    "pretest:unit": "dotenv -c test -- prisma migrate reset --force"
+    "pretest:unit": "dotenv -c test -- prisma migrate reset --force > /dev/null"
   },
   "dependencies": {
     "@prisma/client": "^4.8.1",
