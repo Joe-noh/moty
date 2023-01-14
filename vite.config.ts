@@ -8,11 +8,6 @@ const config: UserConfig = {
     environment: 'vprisma',
     include: ['src/**/*.{test,spec}.{js,ts}'],
     setupFiles: ['vitest-environment-vprisma/setup', 'test/setup.ts'],
-    environmentOptions: {
-      vprisma: {
-        databaseUrl: 'postgres://moty:password@localhost:5433/moty_test',
-      },
-    },
   },
 }
 
