@@ -24,7 +24,7 @@ export async function login() {
   try {
     const { user } = await signInWithPopup(auth, google)
 
-    console.log(user)
+    return user
   } catch (e) {
     console.log(e)
   }
