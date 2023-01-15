@@ -10,6 +10,7 @@
     font-family: 'Montserrat', sans-serif;
     font-style: italic;
     font-weight: 900;
+    background-color: var(--background-color);
   }
 
   :root {
