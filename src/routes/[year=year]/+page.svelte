@@ -1,12 +1,32 @@
 <script lang="ts">
+  import { onMount } from 'svelte'
+  import { initializeFirebase, login } from '$lib/firebase'
+  import Button from '$lib/components/button.svelte'
   import type { PageData } from './$types'
 
   export let data: PageData
+
+  let signinForm: HTMLFormElement
+  let idTokenInput: HTMLInputElement
+
+  onMount(async () => initializeFirebase())
+
+  async function signin(e: Event) {
+    e.preventDefault()
+
+    const user = await login()
+
+    if (user) {
+      idTokenInput.value = await user.getIdToken()
+      signinForm.submit()
+    }
+  }
 </script>
 
-<h1>{data.year}</h1>
-<ol>
-  {#each data.movies as movie}
-    <li>{movie}</li>
-  {/each}
-</ol>
+<h1>Movie of the Year</h1>
+
+{data.year}
+<form action="/users" method="post" bind:this={signinForm}>
+  <input type="hidden" name="idToken" bind:this={idTokenInput} />
+  <Button type="submit" on:click={(e) => signin(e)}>CREATE USER</Button>
+</form>
