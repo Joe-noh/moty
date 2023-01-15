@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte'
   import { initializeFirebase, login } from '$lib/firebase'
+  import Button from '$lib/components/button.svelte'
 
   let signinForm: HTMLFormElement
   let idTokenInput: HTMLInputElement
@@ -23,5 +24,5 @@
 
 <form action="/users" method="post" bind:this={signinForm}>
   <input type="hidden" name="idToken" bind:this={idTokenInput} />
-  <button type="submit" on:click={(e) => signin(e)}>CREATE USER</button>
+  <Button type="submit" on:click={(e) => signin(e)}>CREATE USER</Button>
 </form>
