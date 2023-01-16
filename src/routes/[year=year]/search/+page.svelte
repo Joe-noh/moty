@@ -35,6 +35,8 @@
     page = 1
     movies = res.movies.map((m) => new Movie(m))
     maxPage = res.maxPage
+
+    scrollTo({ top: 0 })
   }
 
   async function fetchMoreMovies() {
@@ -45,11 +47,9 @@
   }
 </script>
 
-<h1>Search</h1>
-
-<form on:submit={searchMovies}>
-  <input type="text" name="query" bind:value={query} />
-  <button type="submit">SEARCH</button>
+<form class="form" on:submit={searchMovies}>
+  <input type="text" name="query" class="input" placeholder="Movie Title" bind:value={query} />
+  <button type="submit" class="button">SEARCH</button>
 </form>
 
 {#if movies.length > 0}
@@ -65,6 +65,37 @@
 <div bind:this={loader} />
 
 <style>
+  .form {
+    width: 100%;
+    margin: 1.5rem 0;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+    position: sticky;
+    top: 1.5rem;
+    z-index: 10000;
+  }
+
+  .input {
+    background-color: var(--text-color);
+    color: var(--background-color);
+    padding: 1rem;
+    margin-right: 0.5rem;
+    box-shadow: rgba(64, 64, 64, 0.5) 0.5rem 0.5rem 0.5rem;
+  }
+
+  .input::placeholder {
+    color: rgba(0, 0, 0, 0.3);
+  }
+
+  .button {
+    padding: 1rem;
+    background-color: var(--primary-color);
+    color: var(--background-color);
+    box-shadow: rgba(64, 64, 64, 0.5) 0.5rem 0.5rem 0.5rem;
+  }
+
   .movies {
     list-style: none;
     width: 100%;
@@ -75,5 +106,6 @@
 
   .movie {
     margin: 0 1rem 2rem;
+    cursor: pointer;
   }
 </style>

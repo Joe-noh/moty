@@ -6,9 +6,5 @@ export const load: PageLoad = async ({ params, parent }) => {
 
   if (user) {
     throw redirect(302, `/${params.year}/movies`)
-  } else {
-    return {
-      movies: [],
-    }
   }
 }
