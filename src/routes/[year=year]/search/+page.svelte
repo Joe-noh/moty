@@ -35,6 +35,8 @@
     page = 1
     movies = res.movies.map((m) => new Movie(m))
     maxPage = res.maxPage
+
+    scrollTo({ top: 0 })
   }
 
   async function fetchMoreMovies() {
