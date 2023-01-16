@@ -25,11 +25,19 @@
 
   .image {
     width: 100%;
+    transition: all 0.1s linear 0s;
+    transform: 0 0;
+  }
+
+  .image:hover {
+    transform: translateX(-0.8rem) translateY(-0.6rem);
+    box-shadow: rgba(64, 64, 64, 0.5) 0.5rem 0.5rem 0.5rem, var(--primary-color) 0.8rem 0.6rem 0;
   }
 
   .title {
     max-width: 100%;
-    margin-top: 0.5rem;
+    margin-top: 0.7rem;
     text-overflow: clip;
+    color: var(--text-color);
   }
 </style>
