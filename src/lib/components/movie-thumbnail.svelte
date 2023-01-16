@@ -39,5 +39,6 @@
     margin-top: 0.7rem;
     text-overflow: clip;
     color: var(--text-color);
+    text-align: center;
   }
 </style>

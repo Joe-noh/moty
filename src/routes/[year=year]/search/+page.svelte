@@ -67,13 +67,13 @@
 <style>
   .form {
     width: 100%;
-    margin: 1rem 0;
+    margin: 1.5rem 0;
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
     justify-content: center;
     position: sticky;
-    top: 1rem;
+    top: 1.5rem;
     z-index: 10000;
   }
 
