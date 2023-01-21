@@ -2,6 +2,7 @@
   import { Movie } from '$lib/entities/movie'
   import MovieThumbnail from '$lib/components/movie-thumbnail.svelte'
   import AddMovieButton from '$lib/components/add-movie-button.svelte'
+  import PoweredBy from '$lib/components/powered-by.svelte'
   import type { PageData } from './$types'
 
   export let data: PageData
@@ -15,11 +16,14 @@
   {#each movies as movie}
     <li class="movie"><MovieThumbnail {movie} /></li>
   {/each}
+
   {#if movies.length < 5}
     <li class="movie">
       <AddMovieButton href={`/${data.year}/search`} />
     </li>
   {/if}
+
+  <PoweredBy />
 </ol>
 
 <style>
@@ -38,6 +42,7 @@
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
+    margin-bottom: 2rem;
   }
 
   .movie {

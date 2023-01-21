@@ -4,6 +4,7 @@
   import { Movie } from '$lib/entities/movie'
   import { trpc } from '$lib/trpc/client'
   import MovieThumbnail from '$lib/components/movie-thumbnail.svelte'
+  import PoweredBy from '$lib/components/powered-by.svelte'
   import type { PageData } from './$types'
 
   export let data: PageData
@@ -31,7 +32,7 @@
 
     observer.observe(loader)
 
-    setTimeout(() => input.focus(), 200)
+    setTimeout(() => input?.focus(), 200)
   })
 
   async function searchMovies(e: Event) {
@@ -64,6 +65,10 @@
   <button type="submit" class="button">SEARCH</button>
 </form>
 
+<div class="powered-by">
+  <PoweredBy />
+</div>
+
 {#if movies.length > 0}
   <ul class="movies">
     {#each movies as movie}
@@ -79,7 +84,7 @@
 <style>
   .form {
     width: 100%;
-    margin: 1.5rem 0;
+    margin: 2rem 0 1rem;
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
@@ -106,6 +111,10 @@
     background-color: var(--primary-color);
     color: var(--background-color);
     box-shadow: rgba(64, 64, 64, 0.5) 0.5rem 0.5rem 0.5rem;
+  }
+
+  .powered-by {
+    margin-bottom: 1rem;
   }
 
   .movies {
