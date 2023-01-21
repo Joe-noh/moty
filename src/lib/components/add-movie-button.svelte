@@ -18,6 +18,11 @@
     border: 2px solid var(--text-color);
     background-color: transparent;
     text-decoration: none;
+    transition: transform 0.1s linear 0s;
+  }
+
+  .button:hover {
+    transform: scale(1.05);
   }
 
   .plus {
