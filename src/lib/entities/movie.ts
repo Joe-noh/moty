@@ -5,6 +5,10 @@ export class Movie {
     this.movie = movie
   }
 
+  public get id(): number {
+    return this.movie.id
+  }
+
   public get title(): string {
     return this.movie.title
   }

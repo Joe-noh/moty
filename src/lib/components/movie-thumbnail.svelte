@@ -4,7 +4,7 @@
   export let movie: Movie
 </script>
 
-<div class="thumbnail">
+<div class="thumbnail" on:click on:keydown>
   {#if movie.thumbnailUrl}
     <img class="image" src={movie.thumbnailUrl} alt={movie.title} />
   {:else}

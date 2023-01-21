@@ -11,7 +11,7 @@ export async function createContext(event: RequestEvent) {
     try {
       const secret = new TextEncoder().encode(JWT_SECRET)
       const { payload } = await jwtVerify(token, secret, { issuer: 'MOTY' })
-      const user = prisma.user.findUniqueOrThrow({ where: { uuid: payload.uuid as string } })
+      const user = await prisma.user.findUniqueOrThrow({ where: { uuid: payload.uuid as string } })
 
       return { user }
     } catch {
