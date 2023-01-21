@@ -1,13 +1,18 @@
 <script lang="ts">
   import { onMount } from 'svelte'
+  import { goto } from '$app/navigation'
   import { Movie } from '$lib/entities/movie'
   import { trpc } from '$lib/trpc/client'
   import MovieThumbnail from '$lib/components/movie-thumbnail.svelte'
+  import type { PageData } from './$types'
+
+  export let data: PageData
 
   let query = ''
   let page = 1
   let maxPage: number
   let movies: Movie[] = []
+  let input: HTMLInputElement
   let loader: HTMLDivElement
 
   onMount(() => {
@@ -25,6 +30,8 @@
     }, options)
 
     observer.observe(loader)
+
+    setTimeout(() => input.focus(), 200)
   })
 
   async function searchMovies(e: Event) {
@@ -45,10 +52,15 @@
     movies = [...movies, ...res.movies.map((m) => new Movie(m))]
     maxPage = res.maxPage
   }
+
+  async function addRanking(movie: Movie) {
+    await trpc.appendToRanking.query({ movieId: movie.id.toString(), year: parseInt(data.year) })
+    await goto(`/${data.year}/movies`)
+  }
 </script>
 
 <form class="form" on:submit={searchMovies}>
-  <input type="text" name="query" class="input" placeholder="Movie Title" bind:value={query} />
+  <input type="text" name="query" class="input" placeholder="Movie Title" bind:value={query} bind:this={input} />
   <button type="submit" class="button">SEARCH</button>
 </form>
 
@@ -56,7 +68,7 @@
   <ul class="movies">
     {#each movies as movie}
       <li class="movie">
-        <MovieThumbnail {movie} />
+        <MovieThumbnail {movie} on:click={() => addRanking(movie)} />
       </li>
     {/each}
   </ul>
