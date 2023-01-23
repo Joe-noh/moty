@@ -2,9 +2,9 @@ import { redirect } from '@sveltejs/kit'
 import type { PageLoad } from './$types'
 
 export const load: PageLoad = async ({ params, parent }) => {
-  const { user } = await parent()
+  const { currentUser } = await parent()
 
-  if (!user) {
+  if (!currentUser) {
     throw redirect(302, `/${params.year}`)
   }
 }

@@ -11,13 +11,13 @@ export const load: LayoutServerLoad = async ({ cookies }) => {
 
     try {
       const { payload } = await jwtVerify(token, secret, { issuer: 'MOTY' })
-      const user = await prisma.user.findUnique({ where: { uuid: payload.uuid as string } })
+      const currentUser = await prisma.user.findUnique({ where: { uuid: payload.uuid as string } })
 
-      return { user }
+      return { currentUser }
     } catch (e) {
-      return { user: null }
+      return { currentUser: null }
     }
   } else {
-    return { user: null }
+    return { currentUser: null }
   }
 }

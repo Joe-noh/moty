@@ -29,7 +29,7 @@
     transform: 0 0;
   }
 
-  .image:hover {
+  .thumbnail:hover .image {
     transform: translateX(-0.8rem) translateY(-0.6rem);
     box-shadow: rgba(64, 64, 64, 0.5) 0.5rem 0.5rem 0.5rem, var(--primary-color) 0.8rem 0.6rem 0;
   }
