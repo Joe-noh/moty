@@ -56,7 +56,7 @@
 
   async function addRanking(movie: Movie) {
     await trpc.appendToRanking.query({ movieId: movie.id.toString(), year: parseInt(data.year) })
-    await goto(`/${data.year}/${data.user?.uuid}`)
+    await goto(`/${data.year}/${data.currentUser?.uuid}`)
   }
 </script>
 

@@ -7,6 +7,7 @@
 
   export let data: PageData
 
+  const { currentUser } = data
   const movies = data.movies.map((m) => new Movie(m))
 </script>
 
@@ -17,7 +18,7 @@
     <li class="movie"><MovieThumbnail {movie} /></li>
   {/each}
 
-  {#if movies.length < 5}
+  {#if currentUser && movies.length < 5}
     <li class="movie">
       <AddMovieButton href={`/${data.year}/search`} />
     </li>
