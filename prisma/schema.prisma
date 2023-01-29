@@ -40,3 +40,10 @@ model Movie {
 
   @@unique([rankingId, position])
 }
+
+model MovieCache {
+  id Int @id @default(autoincrement())
+  movieId String @unique
+  expiresAt DateTime
+  responseBody Json
+}

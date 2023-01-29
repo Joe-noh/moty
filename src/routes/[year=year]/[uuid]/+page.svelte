@@ -8,7 +8,7 @@
   export let data: PageData
 
   const { currentUser } = data
-  const movies = data.movies.map((m) => new Movie(m))
+  const movies = data.movies?.map((m) => new Movie(m)) || []
 </script>
 
 <h1 class="heading">Movie of the Year {data.year}</h1>
