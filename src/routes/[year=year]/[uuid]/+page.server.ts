@@ -1,6 +1,6 @@
 import { redirect } from '@sveltejs/kit'
-import { addDays } from 'date-fns'
 import { prisma } from '$lib/prisma'
+import { findCachedMovie, cacheMovie } from '$lib/movie-cache'
 import { TMDB_ACCESS_TOKEN } from '$env/static/private'
 import type { PageServerLoad } from './$types'
 
@@ -24,12 +24,10 @@ export const load: PageServerLoad = async ({ params, parent }) => {
   })
 
   if (ranking) {
-    const now = new Date()
-
     for (let i = 0; i < ranking.movies.length; i++) {
       const { movieId } = ranking.movies[i]
 
-      const cache = await prisma.movieCache.findFirst({ where: { movieId, expiresAt: { gt: now } } })
+      const cache = await findCachedMovie(movieId)
 
       if (cache) {
         movies.push(cache.responseBody as Tmdb.Movie)
@@ -41,13 +39,7 @@ export const load: PageServerLoad = async ({ params, parent }) => {
           },
         })
         const responseBody: Tmdb.Movie = await response.json()
-
-        const expiresAt = addDays(now, 1)
-        await prisma.movieCache.upsert({
-          where: { movieId },
-          update: { responseBody, expiresAt },
-          create: { responseBody, expiresAt, movieId },
-        })
+        await cacheMovie(responseBody)
 
         movies.push(responseBody)
       }
