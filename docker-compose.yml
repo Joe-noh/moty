@@ -9,11 +9,5 @@ services:
       POSTGRES_DB: moty
       POSTGRES_USER: moty
       POSTGRES_PASSWORD: password
-  testdb:
-    image: postgres:15.0
-    ports:
-      - 5433:5432
-    environment:
-      POSTGRES_DB: moty_test
-      POSTGRES_USER: moty
-      POSTGRES_PASSWORD: password
+    volumes:
+      - ./test/initdb.sh:/docker-entrypoint-initdb.d/create-db-user.sh
